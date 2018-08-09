@@ -1,39 +1,38 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
-/* this is a function
-const SearchBar = () => {
+//Functional component
+/*
+const SearchBar =() => {
 	return <input />
-};
+}
 */
 
-// => This is the same as function 
+//Class Component
+// Each class state has his own STATE - they re-render
 
-//this is a Class
-//Only Class has STATE - functions do not have
-class SearchBar extends Component {
+class SearchBar extends Component{
+    //only inside the constructor you manually change the state
+    constructor(props) {
+        super(props);
 
-	constructor(props) {
-		super(props);
+        this.state = { term:'' };
+    }
 
-		this.state = { term: '' };
-	}
+    render() {
+        return (
+            <div className="search-bar">
+                <input
+                    value={this.state.term}
+                    onChange={event => this.onInputChange(event.target.value )} />
+            </div>
+        );
+    }
 
+    onInputChange (term){
+        this.setState({term});
+        this.props.onSearchTermChange(term);
+    }
 
-	render() {
-
-		return (
-				<div className="search-bar">
-					<input 
-					value={this.state.term}		
-					onChange={event => this.onInputChange(event.target.value)} />
-				</div>
-			);
-	}
-	
-	onInputChange(term) {
-		this.setState({term});
-		this.props.onSearchTermChange(term);
-	}
 
 }
 
